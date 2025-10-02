@@ -2,7 +2,6 @@
 require('dotenv').config();
 
 const express = require('express');
-const cors = require('cors');
 const helmet = require('helmet');
 
 // Import database configuration
@@ -10,16 +9,13 @@ const { testConnection } = require('./config/database');
 
 // Import route modules
 const fatgridRoutes = require('./api/routes/fatgrid');
+const prnewsRoutes = require('./api/routes/prnews');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(helmet());
-app.use(cors({
-  origin: process.env.CORS_ORIGIN || '*',
-  credentials: true
-}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -31,6 +27,7 @@ app.use((req, res, next) => {
 
 // API Routes
 app.use('/fatgrid', fatgridRoutes);
+app.use('/prnews', prnewsRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -50,6 +47,9 @@ app.get('/', (req, res) => {
       health: '/health',
       fatgrid: {
         getData: 'GET /fatgrid/get_data'
+      },
+      prnews: {
+        getData: 'GET /prnews/get_data'
       }
     },
     usage: {

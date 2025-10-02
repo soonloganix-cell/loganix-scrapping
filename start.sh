@@ -54,12 +54,6 @@ FATGRID_SESSION_TOKEN=your_fatgrid_session_token_here
 PORT=3000
 NODE_ENV=development
 
-# CORS Configuration
-CORS_ORIGIN=*
-EOF
-    echo "📝 Please edit .env file with your database credentials and API tokens."
-fi
-
 # Create exports directory if it doesn't exist
 mkdir -p exports
 

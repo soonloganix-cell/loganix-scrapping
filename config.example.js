@@ -22,8 +22,4 @@ module.exports = {
     environment: 'development'
   },
   
-  // CORS Configuration
-  cors: {
-    origin: '*'
-  }
 };

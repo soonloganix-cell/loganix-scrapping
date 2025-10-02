@@ -208,7 +208,7 @@ class FatGridService {
               id: domain.id,
               url: domainInfo.data.url, // Use the actual URL from detailed info
               bestPrice: domain.bestPrice,
-              class: domain.class,
+              class: domain.type,
               currency: domain.currency,
               resources: domain.resources,
               dr: domain.dr,
