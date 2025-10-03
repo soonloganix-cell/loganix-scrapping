@@ -10,6 +10,8 @@ const { testConnection } = require('./config/database');
 // Import route modules
 const fatgridRoutes = require('./api/routes/fatgrid');
 const prnewsRoutes = require('./api/routes/prnews');
+const nobsmktRoutes = require('./api/routes/nobsmkt');
+const searcheyeRoutes = require('./api/routes/searcheye');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -28,6 +30,8 @@ app.use((req, res, next) => {
 // API Routes
 app.use('/fatgrid', fatgridRoutes);
 app.use('/prnews', prnewsRoutes);
+app.use('/nobsmkt', nobsmktRoutes);
+app.use('/searcheye', searcheyeRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -50,6 +54,12 @@ app.get('/', (req, res) => {
       },
       prnews: {
         getData: 'GET /prnews/get_data'
+      },
+      nobsmkt: {
+        getData: 'GET /nobsmkt/get_data'
+      },
+      searcheye: {
+        getData: 'GET /searcheye/get_data'
       }
     },
     usage: {
@@ -84,6 +94,9 @@ app.listen(PORT, async () => {
   console.log(`📖 API docs: http://localhost:${PORT}/`);
   console.log(`🔧 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`🎯 FatGrid endpoint: http://localhost:${PORT}/fatgrid/get_data`);
+  console.log(`🎯 PRNews endpoint: http://localhost:${PORT}/prnews/get_data`);
+  console.log(`🎯 NobsMkt endpoint: http://localhost:${PORT}/nobsmkt/get_data`);
+  console.log(`🎯 Searcheye endpoint: http://localhost:${PORT}/searcheye/get_data`);
   
   // Test database connection
   await testConnection();
