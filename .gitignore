@@ -133,3 +133,6 @@ Thumbs.db
 config.js
 exports/
 *.json.bak
+
+# Huge files
+manual/nobsmarketplace/data.json

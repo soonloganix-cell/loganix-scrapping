@@ -12,6 +12,8 @@ const fatgridRoutes = require('./api/routes/fatgrid');
 const prnewsRoutes = require('./api/routes/prnews');
 const nobsmktRoutes = require('./api/routes/nobsmkt');
 const searcheyeRoutes = require('./api/routes/searcheye');
+const outreachmantraRoutes = require('./api/routes/outreachmantra');
+const meupRoutes = require('./api/routes/meup');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -32,6 +34,8 @@ app.use('/fatgrid', fatgridRoutes);
 app.use('/prnews', prnewsRoutes);
 app.use('/nobsmkt', nobsmktRoutes);
 app.use('/searcheye', searcheyeRoutes);
+app.use('/outreachmantra', outreachmantraRoutes);
+app.use('/meup', meupRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -60,6 +64,14 @@ app.get('/', (req, res) => {
       },
       searcheye: {
         getData: 'GET /searcheye/get_data'
+      },
+      outreachmantra: {
+        getData: 'GET /outreachmantra/get_data',
+        testConnection: 'GET /outreachmantra/test_connection'
+      },
+      meup: {
+        getData: 'GET /meup/get_data',
+        testConnection: 'GET /meup/test_connection'
       }
     },
     usage: {
@@ -97,6 +109,8 @@ app.listen(PORT, async () => {
   console.log(`🎯 PRNews endpoint: http://localhost:${PORT}/prnews/get_data`);
   console.log(`🎯 NobsMkt endpoint: http://localhost:${PORT}/nobsmkt/get_data`);
   console.log(`🎯 Searcheye endpoint: http://localhost:${PORT}/searcheye/get_data`);
+  console.log(`🎯 OutreachMantra endpoint: http://localhost:${PORT}/outreachmantra/get_data`);
+  console.log(`🎯 MeUp endpoint: http://localhost:${PORT}/meup/get_data`);
   
   // Test database connection
   await testConnection();
