@@ -14,6 +14,8 @@ const nobsmktRoutes = require('./api/routes/nobsmkt');
 const searcheyeRoutes = require('./api/routes/searcheye');
 const outreachmantraRoutes = require('./api/routes/outreachmantra');
 const meupRoutes = require('./api/routes/meup');
+const loganixRoutes = require('./api/routes/loganix');
+const linkhouseRoutes = require('./api/routes/linkhouse');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -36,6 +38,8 @@ app.use('/nobsmkt', nobsmktRoutes);
 app.use('/searcheye', searcheyeRoutes);
 app.use('/outreachmantra', outreachmantraRoutes);
 app.use('/meup', meupRoutes);
+app.use('/loganix', loganixRoutes);
+app.use('/linkhouse', linkhouseRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -72,6 +76,13 @@ app.get('/', (req, res) => {
       meup: {
         getData: 'GET /meup/get_data',
         testConnection: 'GET /meup/test_connection'
+      },
+      loganix: {
+        getData: 'GET /loganix/get_data'
+      },
+      linkhouse: {
+        getData: 'GET /linkhouse/get_data',
+        testConnection: 'GET /linkhouse/test_connection'
       }
     },
     usage: {
@@ -111,6 +122,8 @@ app.listen(PORT, async () => {
   console.log(`🎯 Searcheye endpoint: http://localhost:${PORT}/searcheye/get_data`);
   console.log(`🎯 OutreachMantra endpoint: http://localhost:${PORT}/outreachmantra/get_data`);
   console.log(`🎯 MeUp endpoint: http://localhost:${PORT}/meup/get_data`);
+  console.log(`🎯 Loganix endpoint: http://localhost:${PORT}/loganix/get_data`);
+  console.log(`🎯 LinkHouse endpoint: http://localhost:${PORT}/linkhouse/get_data`);
   
   // Test database connection
   await testConnection();
