@@ -5,7 +5,7 @@ const express = require('express');
 const helmet = require('helmet');
 
 // Import database configuration
-const { testConnection } = require('./config/database');
+const { testConnection, testPostgresConnection } = require('./config/database');
 
 // Import route modules
 const fatgridRoutes = require('./api/routes/fatgrid');
@@ -16,6 +16,7 @@ const outreachmantraRoutes = require('./api/routes/outreachmantra');
 const meupRoutes = require('./api/routes/meup');
 const loganixRoutes = require('./api/routes/loganix');
 const linkhouseRoutes = require('./api/routes/linkhouse');
+const csvImportRoutes = require('./api/routes/csvImport');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -40,6 +41,7 @@ app.use('/outreachmantra', outreachmantraRoutes);
 app.use('/meup', meupRoutes);
 app.use('/loganix', loganixRoutes);
 app.use('/linkhouse', linkhouseRoutes);
+app.use('/', csvImportRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -83,6 +85,11 @@ app.get('/', (req, res) => {
       linkhouse: {
         getData: 'GET /linkhouse/get_data',
         testConnection: 'GET /linkhouse/test_connection'
+      },
+      csvImport: {
+        importCsv: 'POST /loganix_csv_sql',
+        testConnection: 'GET /loganix_csv_sql/test',
+        getStats: 'GET /loganix_csv_sql/stats'
       }
     },
     usage: {
@@ -124,9 +131,11 @@ app.listen(PORT, async () => {
   console.log(`🎯 MeUp endpoint: http://localhost:${PORT}/meup/get_data`);
   console.log(`🎯 Loganix endpoint: http://localhost:${PORT}/loganix/get_data`);
   console.log(`🎯 LinkHouse endpoint: http://localhost:${PORT}/linkhouse/get_data`);
+  console.log(`🎯 CSV Import endpoint: http://localhost:${PORT}/loganix_csv_sql`);
   
-  // Test database connection
+  // Test database connections
   await testConnection();
+  await testPostgresConnection();
 });
 
 module.exports = app;

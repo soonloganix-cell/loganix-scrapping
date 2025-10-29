@@ -128,8 +128,8 @@ class LinkHouseService {
             hash
           );
           
-          if (result.success && result.data && result.data.data) {
-            const domains = result.data.data;
+          if (result.success && result.data && result.data.response) {
+            const domains = result.data.response;
             console.log(`Found ${domains.length} domains on page ${currentPage}`);
             
             // Store domains in database
